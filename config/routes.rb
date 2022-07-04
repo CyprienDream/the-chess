@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  get 'pages/home'
   root to: 'pages#home'
   devise_for :users
   devise_scope :user do
     resources :users, only: %i[show]
+  end
+
+  resources :boards, only: %i[create show] do
+    resources :moves, only: :show
   end
 end
