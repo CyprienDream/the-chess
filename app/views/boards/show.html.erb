@@ -1,5 +1,10 @@
 <h1>Boards#show</h1>
 <p>Find me in app/views/boards/show.html.erb</p>
-<div class="myBoard" data-controller="board-subscription" data-board-subscription-board-id-value="<%= @board.id%>">
-
+<div id="myBoard" data-controller="board-subscription" data-board-subscription-board-id-value="<%= @board.id%>">
+  <div id="messages" data-board-subscription-target="messages"></div>
 </div>
+<%= form_with url: board_moves_path(@board, @move), method: :post do |f| %>
+    <%= f.label :notation %>
+    <%= f.text_field :notation %>
+    <%= f.submit "Move" %>
+<% end %>

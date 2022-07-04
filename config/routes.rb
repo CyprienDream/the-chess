@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   end
 
   resources :boards, only: %i[create show] do
-    resources :moves, only: :show
+    resources :moves, only: :create
   end
 end

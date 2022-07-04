@@ -1,7 +1,7 @@
 class MovesController < ApplicationController
   def create
     @board = Board.find(params[:board_id])
-    @move = Move.new(strong_params)
+    @move = Move.new(notation: params[:notation])
     @move.board = @board
     @move.user = current_user
     return unless @move.save
@@ -10,7 +10,6 @@ class MovesController < ApplicationController
       @board,
       '1'
     )
-    head :ok
     # redirect_to board_path(@board)
     # {
     #   notation: params[:move][:notation],

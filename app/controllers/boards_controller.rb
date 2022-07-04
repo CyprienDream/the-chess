@@ -1,6 +1,7 @@
 class BoardsController < ApplicationController
   def show
     @board = Board.find(params[:id])
+    @move = Move.new
   end
 
   def create
