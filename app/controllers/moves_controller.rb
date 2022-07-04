@@ -4,17 +4,18 @@ class MovesController < ApplicationController
     @move = Move.new(strong_params)
     @move.board = @board
     @move.user = current_user
-    @move.save
+    return unless @move.save
 
-    # BoardChannel.broadcast_to(
-    #   @board,
-    #   {
-    #     notation: params[:move][:notation],
-    #     fen: params[:move][:fen]
-    #   }
-    # )
-    # head :ok
+    BoardChannel.broadcast_to(
+      @board,
+      '1'
+    )
+    head :ok
     # redirect_to board_path(@board)
+    # {
+    #   notation: params[:move][:notation],
+    #   fen: params[:move][:fen]
+    # }
   end
 
   private
