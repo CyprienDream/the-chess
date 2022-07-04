@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_04_102836) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_04_112610) do
+  create_table "board_players", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "board_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_board_players_on_board_id"
+    t.index ["user_id"], name: "index_board_players_on_user_id"
+  end
+
+  create_table "boards", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "moves", force: :cascade do |t|
+    t.string "notation"
+    t.integer "user_id", null: false
+    t.integer "board_id", null: false
+    t.string "fen"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_moves_on_board_id"
+    t.index ["user_id"], name: "index_moves_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -25,4 +50,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_04_102836) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "board_players", "boards"
+  add_foreign_key "board_players", "users"
+  add_foreign_key "moves", "boards"
+  add_foreign_key "moves", "users"
 end
